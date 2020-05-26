@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using System.Text.Json;
+
+@{string cartlist = Context.Session.GetString("Cart");
+    List<Movie> cart = JsonSerializer.Deserialize<List<Movie>>(cartlist);
+
+    for(int i = 0; i < cart.Count; i++)
+    {
+        <p>Title: @cart[i].Title Runtime: @cart[i].Runtime</p>
+    }
+}
+<form action="Receipt" method="post">
+    <input type="submit" value="Checkout" />
+</form>

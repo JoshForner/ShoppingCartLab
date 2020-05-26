@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using System.Text.Json;
+
+@{ 
+    string list = Context.Session.GetString("Movies");
+    List<Movie> movies = JsonSerializer.Deserialize<List<Movie>>(list);
+    <table style="width:100%">
+        <tr><th>Title</th> <th>Runtime</th></tr>
+            @for (int i = 0; i < movies.Count; i++)
+            {
+        <tr>
+                <td>
+                    <p>@movies[i].Title</p>
+                </td>
+                <td><p>@movies[i].Runtime</p></td>
+                <td>
+                    <form action="AddToCart" method="post">
+                        <input type="hidden" name="Title" value="@movies[i].Title" />
+                        <input type="hidden" name="RunTime" value="@movies[i].Runtime" />
+                        <input type="submit" value="Add to Cart" />
+                </form>
+                </td>
+        </tr>
+            }
+
+    </table>
+    
+}

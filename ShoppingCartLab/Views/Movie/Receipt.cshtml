@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using System.Text.Json;
+
+@{string cartlist = Context.Session.GetString("Cart");
+    List<Movie> cart = JsonSerializer.Deserialize<List<Movie>>(cartlist);
+    foreach(Movie cmovie in cart)
+    {
+    <p>Title: @cmovie.Title Runtime: @cmovie.Runtime Price: $6.99</p>
+    }
+
+<p>Total = $@(6.99 * cart.Count)</p>
+    cart.Clear();
+    cartlist = JsonSerializer.Serialize(cart);
+    Context.Session.SetString("Cart", cartlist);
+}
